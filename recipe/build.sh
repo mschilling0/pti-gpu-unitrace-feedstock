@@ -5,7 +5,7 @@ set -euxo pipefail
 if [ "$PKG_NAME" == "pti-gpu-unitrace" ]; then
     SRC_DIR=./tools/unitrace
     BLD_DIR=./tools/unitrace/build
-    CMAKE_ARGS="-DBUILD_WITH_MPI=OFF"
+    CMAKE_ARGS=""
 else
     SRC_DIR=./sdk
     BLD_DIR=./sdk/build
