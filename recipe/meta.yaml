@@ -3,6 +3,7 @@
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] ~ "." ~ version.split('.')[1] %}
 {% set so_version_major = version.split('.')[0] %}
+{% set build_number = 0 %}
 
 {% set unitrace_version_match = load_file_regex(
   load_file="tools/unitrace/src/version.h",
@@ -20,7 +21,7 @@ source:
     - patches/0001-Link-spdlog-dynamically.patch
 
 build:
-  number: 0
+  number: {{ build_number }}
   skip: true  # [not linux]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -50,6 +51,8 @@ outputs:
   - name: {{ name | lower }}{{ so_version_major }}
     script: install.sh
     version: {{ version_pkg }}
+    build:
+      number: {{ build_number }}
     requirements:
       build:
         - cmake >=3.29
@@ -87,6 +90,8 @@ outputs:
   - name: {{ name }}
     script: install.sh
     version: {{ version_pkg }}
+    build:
+      number: {{ build_number }}
     run_exports:
         - {{ pin_subpackage(name ~ so_version_major, max_pin='x.x') }}
     requirements:
@@ -129,6 +134,8 @@ outputs:
   - name: pti-gpu-unitrace
     script: build.sh
     version: {{ unitrace_version }}
+    build:
+      number: {{ build_number }}
     requirements:
       build:
         - cmake >=3.29
