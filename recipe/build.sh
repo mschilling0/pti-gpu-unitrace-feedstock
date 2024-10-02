@@ -4,13 +4,13 @@ set -euxo pipefail
 
 cmake \
     -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_COMPILER=icx \
     -DCMAKE_CXX_COMPILER=icpx \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
-    -DBUILD_WITH_MPI=OFF \
+    -DPTI_BUILD_TESTING=OFF \
+    -DPTI_BUILD_SAMPLES=OFF \
     -DCMAKE_INSTALL_PREFIX:STRING=${PREFIX} \
-    -S ./tools/unitrace \
-    -B ./tools/unitrace/build 
-cmake --build ./tools/unitrace/build
-cmake --install ./tools/unitrace/build --prefix=${PREFIX}
+    -S ./sdk \
+    -B ./sdk/build 
+cmake --build ./sdk/build
