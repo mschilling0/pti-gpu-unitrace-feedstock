@@ -1,7 +1,59 @@
-About pti-gpu-unitrace-feedstock
-================================
+About libipti-split-feedstock
+=============================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/pti-gpu-unitrace-feedstock/blob/main/LICENSE.txt)
+
+
+About libipti-split
+-------------------
+
+Home: https://github.com/intel/pti-gpu
+
+Package license: MIT
+
+Summary: Profiling Tools Interfaces for GPU
+
+Development: https://github.com/intel/pti-gpu
+
+Documentation: https://github.com/intel/pti-gpu
+
+This a PTI library for Intel(R) oneAPI applications. 
+
+
+About libipti0
+--------------
+
+Home: https://github.com/intel/pti-gpu
+
+Package license: MIT
+
+Summary: Profiling Tools Interfaces for GPU
+
+Development: https://github.com/intel/pti-gpu
+
+Documentation: https://github.com/intel/pti-gpu
+
+This a PTI library for Intel(R) oneAPI applications.
+
+
+About libipti
+-------------
+
+Home: https://github.com/intel/pti-gpu
+
+Package license: MIT
+
+Summary: Profiling Tools Interfaces for GPU2
+
+Development: https://github.com/intel/pti-gpu
+
+Documentation: https://github.com/intel/pti-gpu
+
+This a PTI library for Intel(R) oneAPI applications.
+
+
+About pti-gpu-unitrace
+----------------------
 
 Home: https://github.com/intel/pti-gpu
 
@@ -55,53 +107,55 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libipti-green.svg)](https://anaconda.org/conda-forge/libipti) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libipti.svg)](https://anaconda.org/conda-forge/libipti) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libipti.svg)](https://anaconda.org/conda-forge/libipti) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libipti.svg)](https://anaconda.org/conda-forge/libipti) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libipti0-green.svg)](https://anaconda.org/conda-forge/libipti0) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libipti0.svg)](https://anaconda.org/conda-forge/libipti0) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libipti0.svg)](https://anaconda.org/conda-forge/libipti0) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libipti0.svg)](https://anaconda.org/conda-forge/libipti0) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-pti--gpu--unitrace-green.svg)](https://anaconda.org/conda-forge/pti-gpu-unitrace) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pti-gpu-unitrace.svg)](https://anaconda.org/conda-forge/pti-gpu-unitrace) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pti-gpu-unitrace.svg)](https://anaconda.org/conda-forge/pti-gpu-unitrace) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pti-gpu-unitrace.svg)](https://anaconda.org/conda-forge/pti-gpu-unitrace) |
 
-Installing pti-gpu-unitrace
-===========================
+Installing libipti-split
+========================
 
-Installing `pti-gpu-unitrace` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `libipti-split` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `pti-gpu-unitrace` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libipti, libipti0, pti-gpu-unitrace` can be installed with `conda`:
 
 ```
-conda install pti-gpu-unitrace
-```
-
-or with `mamba`:
-
-```
-mamba install pti-gpu-unitrace
-```
-
-It is possible to list all of the versions of `pti-gpu-unitrace` available on your platform with `conda`:
-
-```
-conda search pti-gpu-unitrace --channel conda-forge
+conda install libipti libipti0 pti-gpu-unitrace
 ```
 
 or with `mamba`:
 
 ```
-mamba search pti-gpu-unitrace --channel conda-forge
+mamba install libipti libipti0 pti-gpu-unitrace
+```
+
+It is possible to list all of the versions of `libipti` available on your platform with `conda`:
+
+```
+conda search libipti --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libipti --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search pti-gpu-unitrace --channel conda-forge
+mamba repoquery search libipti --channel conda-forge
 
-# List packages depending on `pti-gpu-unitrace`:
-mamba repoquery whoneeds pti-gpu-unitrace --channel conda-forge
+# List packages depending on `libipti`:
+mamba repoquery whoneeds libipti --channel conda-forge
 
-# List dependencies of `pti-gpu-unitrace`:
-mamba repoquery depends pti-gpu-unitrace --channel conda-forge
+# List dependencies of `libipti`:
+mamba repoquery depends libipti --channel conda-forge
 ```
 
 
@@ -146,17 +200,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating pti-gpu-unitrace-feedstock
-===================================
+Updating libipti-split-feedstock
+================================
 
-If you would like to improve the pti-gpu-unitrace recipe or build a new
+If you would like to improve the libipti-split recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/pti-gpu-unitrace-feedstock are
+Note that all branches in the conda-forge/libipti-split-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
@@ -172,5 +226,6 @@ Feedstock Maintainers
 =====================
 
 * [@ZzEeKkAa](https://github.com/ZzEeKkAa/)
+* [@mschilling0](https://github.com/mschilling0/)
 * [@oleksandr-pavlyk](https://github.com/oleksandr-pavlyk/)
 
