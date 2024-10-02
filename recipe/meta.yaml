@@ -4,6 +4,11 @@
 {% set so_version = version.split('.')[0] ~ "." ~ version.split('.')[1] %}
 {% set so_version_major = version.split('.')[0] %}
 
+{% set unitrace_version_match = load_file_regex(
+  load_file="tools/unitrace/src/version.h",
+  regex_pattern='#define\s+UNITRACE_VERSION\s+"(.+)"') %}
+{% set unitrace_version = unitrace_version_match[1] %}
+
 package:
   name: {{ name|lower }}-split
   version: {{ version_pkg }}
@@ -125,8 +130,8 @@ outputs:
       dev_url: https://github.com/intel/pti-gpu
   
   - name: pti-gpu-unitrace
-    script: build_unitrace.sh
-    version: 2.0.2
+    script: build.sh
+    version: {{ unitrace_version }}
     requirements:
       build:
         - cmake >=3.29
@@ -138,11 +143,8 @@ outputs:
         - level-zero-devel >=1.17.6
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
-        - spdlog >=1.14.1
-        - local::ittapi-static
-        # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
-        #   remove once fmt is in run_export of spdlog.
-        - fmt
+        # TODO: add ittapi-static once it is available
+        # - ittapi-static
         # These packages are not required during build, but we want proper version
         # export for runtime:
         - intel-cmplr-lib-rt
