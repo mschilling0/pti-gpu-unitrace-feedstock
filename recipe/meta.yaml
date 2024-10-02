@@ -33,7 +33,6 @@ requirements:
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     # FIXME: use 2024.2.1 compiler, once available. There is a queue_id feature
     #  missing
-    - {{ compiler('dpcpp') }} >=2024.2.1 # dpcpp for build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
     - level-zero-devel >=1.17.6 # level zero for build/rt
@@ -56,7 +55,6 @@ outputs:
         - cmake >=3.29
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
-        - {{ compiler('dpcpp') }} >=2024.2.1
         - {{ stdlib('c') }}
       host:
         - level-zero-devel >=1.17.6
@@ -96,7 +94,6 @@ outputs:
         - cmake >=3.29
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
-        - {{ compiler('dpcpp') }} >=2024.2.1
         - {{ stdlib('c') }}
       host:
         - level-zero-devel >=1.17.6

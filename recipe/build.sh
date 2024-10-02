@@ -14,8 +14,6 @@ fi
 
 cmake $CMAKE_ARGS \
     -G Ninja \
-    -DCMAKE_C_COMPILER=icx \
-    -DCMAKE_CXX_COMPILER=icpx \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DCMAKE_INSTALL_PREFIX:STRING=${PREFIX} \
