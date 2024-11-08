@@ -19,7 +19,7 @@ source:
 
 build:
   number: 1
-  skip: true  # [not (linux and win)]
+  skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
     - spdlog >=1.14.1
