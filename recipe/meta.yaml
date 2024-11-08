@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{version}}.tar.gz
-  sha256: 6b712931b4b9af7c57dc19cfffeeafa1806a1f8a6464d1a781e6a83acb409b3a
+  sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
   patches:
     - patches/0001-Link-spdlog-dynamically.patch
 
