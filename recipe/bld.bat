@@ -3,11 +3,11 @@ SETLOCAL EnableDelayedExpansion
 pushd "%SRC_DIR%" || exit /b !ERRORLEVEL!
 
 if "%PKG_NAME%" == "pti-gpu-unitrace" (
-  set SRC_DIR=".\tools\unitrace"
+  set _SRC_DIR=".\tools\unitrace"
   set BLD_DIR=".\tools\unitrace\build"
   set CMAKE_ARGS=""
 ) else (
-  set SRC_DIR=".\sdk"
+  set _SRC_DIR=".\sdk"
   set BLD_DIR=".\sdk\build"
   set CMAKE_ARGS="-DPTI_BUILD_TESTING=OFF -DPTI_BUILD_SAMPLES=OFF"
 )
@@ -18,7 +18,7 @@ cmake %CMAKE_ARGS% ^
     -DCMAKE_BUILD_TYPE=Release ^
     -DCMAKE_VERBOSE_MAKEFILE=ON ^
     -DCMAKE_INSTALL_PREFIX:STRING=%LIBRARY_PREFIX% ^
-    -S %SRC_DIR% ^
+    -S %_SRC_DIR% ^
     -B %BLD_DIR% || exit /b !ERRORLEVEL!
 
 :: Build.
