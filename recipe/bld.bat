@@ -2,6 +2,10 @@ SETLOCAL EnableDelayedExpansion
 
 pushd "%SRC_DIR%" || exit /b !ERRORLEVEL!
 
+set _SRC_DIR=""
+set BLD_DIR=""
+set CMAKE_ARGS=""
+
 if "%PKG_NAME%" == "pti-gpu-unitrace" (
   set _SRC_DIR=".\tools\unitrace"
   set BLD_DIR=".\tools\unitrace\build"
