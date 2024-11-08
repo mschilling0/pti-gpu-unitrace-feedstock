@@ -18,7 +18,7 @@ source:
   sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
 
 build:
-  number: 1
+  number: 0
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -34,6 +34,8 @@ requirements:
     - level-zero-devel >=1.17.6 # level zero for build/rt
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
+    # cpu runtime
+    - intel-opencl-rt
     - spdlog >=1.14.1
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
@@ -56,6 +58,8 @@ outputs:
         - level-zero-devel >=1.17.6
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
+        # cpu runtime
+        - intel-opencl-rt
         - spdlog >=1.14.1
         # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
         #   remove once fmt is in run_export of spdlog.
@@ -89,6 +93,8 @@ outputs:
         - level-zero-devel >=1.17.6
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
+        # cpu runtime
+        - intel-opencl-rt
         - impi-devel
         # TODO: add ittapi-static once it is available
         # - ittapi-static
