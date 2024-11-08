@@ -18,8 +18,10 @@ if "%PKG_NAME%" == "pti-gpu-unitrace" (
 )
 
 :: Configure.
-cmake %CMAKE_ARGS% ^
+cmake ^
     -G Ninja ^
+    -DPTI_BUILD_TESTING=OFF ^
+    -DPTI_BUILD_SAMPLES=OFF ^
     -DCMAKE_BUILD_TYPE=Release ^
     -DCMAKE_VERBOSE_MAKEFILE=ON ^
     -DCMAKE_INSTALL_PREFIX:STRING=%LIBRARY_PREFIX% ^
@@ -27,7 +29,7 @@ cmake %CMAKE_ARGS% ^
     -B %BLD_DIR% || exit /b !ERRORLEVEL!
 
 :: Build.
-cmake --build "%BLD_DIR%" || exit /b !ERRORLEVEL!
+cmake --build %BLD_DIR% || exit /b !ERRORLEVEL!
 
 if "$PKG_NAME" == "pti-gpu-unitrace" (
     cmake --install %BLD_DIR% --prefix=%LIBRARY_PREFIX% || exit /b !ERRORLEVEL!
