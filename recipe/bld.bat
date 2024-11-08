@@ -1,4 +1,5 @@
 SETLOCAL EnableDelayedExpansion
+@echo on
 
 pushd "%SRC_DIR%" || exit /b !ERRORLEVEL!
 
