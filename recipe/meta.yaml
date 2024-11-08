@@ -16,12 +16,10 @@ package:
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{version}}.tar.gz
   sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
-  patches:
-    - patches/0001-Link-spdlog-dynamically.patch
 
 build:
   number: 1
-  skip: true  # [not linux]
+  skip: true  # [not (linux and win)]
   ignore_run_exports:
     - dpcpp-cpp-rt
     - spdlog >=1.14.1
