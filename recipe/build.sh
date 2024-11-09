@@ -2,15 +2,25 @@
 
 set -euxo pipefail
 
-cmake \
+if [ "$PKG_NAME" == "pti-gpu-unitrace" ]; then
+    SRC_DIR=./tools/unitrace
+    BLD_DIR=./tools/unitrace/build
+    CMAKE_ARGS=""
+else
+    SRC_DIR=./sdk
+    BLD_DIR=./sdk/build
+    CMAKE_ARGS="-DPTI_BUILD_TESTING=OFF -DPTI_BUILD_SAMPLES=OFF"
+fi
+
+cmake $CMAKE_ARGS \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_COMPILER=icx \
-    -DCMAKE_CXX_COMPILER=icpx \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
-    -DBUILD_WITH_MPI=OFF \
     -DCMAKE_INSTALL_PREFIX:STRING=${PREFIX} \
-    -S ./tools/unitrace \
-    -B ./tools/unitrace/build 
-cmake --build ./tools/unitrace/build
-cmake --install ./tools/unitrace/build --prefix=${PREFIX}
+    -S ${SRC_DIR} \
+    -B ${BLD_DIR} 
+cmake --build ${BLD_DIR}
+
+if [ "$PKG_NAME" == "pti-gpu-unitrace" ]; then
+    cmake --install ${BLD_DIR} --prefix=${PREFIX}
+fi

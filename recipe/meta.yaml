@@ -1,58 +1,147 @@
-{% set name = "pti-gpu-unitrace" %}
-{% set version = "2.0.2" %}
+{% set name = "intel-pti" %}
+{% set version = "0.10.0" %}
+{% set version_pkg = version | replace("-", ".") %}
+{% set so_version = version.split('.')[0] ~ "." ~ version.split('.')[1] %}
+{% set so_version_major = version.split('.')[0] %}
+
+{% set unitrace_version_match = load_file_regex(
+  load_file="tools/unitrace/src/version.h",
+  regex_pattern='#define\s+UNITRACE_VERSION\s+"(.+)"') %}
+{% set unitrace_version = unitrace_version_match[1] %}
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: {{ name|lower }}-split
+  version: {{ version_pkg }}
 
 source:
-  url: https://github.com/intel/pti-gpu/archive/refs/tags/unitrace-{{ version }}.tar.gz
-  sha256: 73e974dc5b6c16b4340be6a87706d134f0e308292d1a2a11e4d1b12b4cadd1cd
+  url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
+  sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
 
 build:
   number: 0
-  skip: true  # [not linux]
+  skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
+    - spdlog >=1.14.1
 
 requirements:
   build:
     - cmake >=3.29
     - ninja >=1.11.1
-    - {{ compiler('cxx') }}
-    - {{ compiler('dpcpp') }} >=2024.1.0
-    - {{ stdlib('c') }}
+    - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
+    - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel >=1.17.6
+    - level-zero-devel >=1.17.6 # level zero for build/rt
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
-    # These packages are not required during build, but we want proper version
-    # export for runtime:
-    # https://github.com/conda-forge/intel-compiler-repack-feedstock/issues/37
-    - intel-cmplr-lib-rt
-  run:
-    # https://github.com/conda-forge/intel-compiler-repack-feedstock/issues/37
-    - {{ pin_compatible('intel-cmplr-lib-rt', min_pin='x.x', max_pin='x') }}
-
-test:
-  commands:
-    - unitrace --help
+    # cpu runtime
+    - intel-opencl-rt
+    - spdlog >=1.14.1
+    # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
+    #   remove once fmt is in run_export of spdlog.
+    - fmt
 
 outputs:
   - name: {{ name }}
-    files:
-      # Need to filter files so that we avoid installing dev dependencies from
-      # itt libraray...
-      - bin/unitrace  #[linux]
-      - bin/libunitrace_tool.so  #[linux]
+    script: install.sh  # [unix]
+    script: install.bat  # [win]
+    version: {{ version_pkg }}
+    build:
+      ignore_run_exports_from:
+        - level-zero-devel
+    run_exports:
+        - {{ pin_subpackage(name, max_pin='x.x') }}
+    requirements:
+      build:
+        - cmake >=3.29
+        - ninja >=1.11.1
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+      host:
+        - level-zero-devel >=1.17.6
+        - ocl-icd  # [linux]
+        - khronos-opencl-icd-loader  # [not linux]
+        # cpu runtime
+        - intel-opencl-rt
+        - spdlog >=1.14.1
+        # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
+        #   remove once fmt is in run_export of spdlog.
+        - fmt
+      run_constrained:
+        - {{ pin_compatible("level-zero") }}
+    test:
+      commands:
+        # TODO: figure out why it is no longer presented in 0.10
+        # - test -f $PREFIX/lib/libpti.so  # [unix]
+        - test -f $PREFIX/lib/libpti_view.so  # [unix]
+        - test -f $PREFIX/lib/libpti.so.{{ so_version }}  # [unix]
+        - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
+        - test -f %LIBRARY_LIB%\pti-{{ so_version|replace(".", "-") }}.dll  # [win]
+        # TODO: figure out why it is in bin directory
+        - test -f %LIBRARY_BIN%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
+    about:
+      home: https://github.com/intel/pti-gpu
+      summary: 'Profiling Tools Interfaces for GPU'
+      description: |
+        A PTI library for Intel(R) oneAPI applications. 
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE
+      doc_url: https://github.com/intel/pti-gpu
+      dev_url: https://github.com/intel/pti-gpu
+  
+  - name: pti-gpu-unitrace
+    script: build.sh  # [unix]
+    script: bld.bat  # [win]
+    version: {{ unitrace_version }}
+    build:
+      ignore_run_exports_from:
+        - level-zero-devel
+      # TODO: does unitrace work on windows?
+      skip: True  # [not linux]
+    requirements:
+      build:
+        - cmake >=3.29
+        - ninja >=1.11.1
+        - {{ compiler('cxx') }}
+        - {{ compiler('dpcpp') }} >=2025.0.0
+        - {{ stdlib('c') }}
+      host:
+        - level-zero-devel >=1.17.6
+        - ocl-icd  # [linux]
+        - khronos-opencl-icd-loader  # [not linux]
+        # cpu runtime
+        - intel-opencl-rt
+        - impi-devel
+        - ittapi-static
+        # These packages are not required during build, but we want proper version
+        # export for runtime:
+        - intel-cmplr-lib-rt
+      run_constrained:
+        - {{ pin_compatible("level-zero") }}
+    test:
+      requires:
+        - level-zero
+      commands:
+        - unitrace --help
+    about:
+      home: https://github.com/intel/pti-gpu
+      summary: 'Unified Tracing and Profiling Tool'
+      description: |
+        A performance tool for Intel(R) oneAPI applications. It traces and
+        profiles host/device activities, interactions and hardware utilizations
+        for Intel(R) GPU applications.
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE
+      doc_url: https://github.com/intel/pti-gpu
+      dev_url: https://github.com/intel/pti-gpu
 
 about:
   home: https://github.com/intel/pti-gpu
-  summary: 'Unified Tracing and Profiling Tool'
+  summary: 'Profiling Tools Interfaces for GPU'
   description: |
-    This a performnce tool for Intel(R) oneAPI applications. It traces and
-    profiles host/device activites, interactions and hardware utilizations for
-    Intel(R) GPU applications.
+    This a PTI library for Intel(R) oneAPI applications. 
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -63,3 +152,4 @@ extra:
   recipe-maintainers:
     - ZzEeKkAa
     - oleksandr-pavlyk
+    - mschilling0
