@@ -80,9 +80,15 @@ outputs:
         # TODO: figure out why it is in bin directory
         - test -f %LIBRARY_BIN%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
-      summary: 'Profiling Tools Interfaces for GPU2'
+      home: https://github.com/intel/pti-gpu
+      summary: 'Profiling Tools Interfaces for GPU'
       description: |
         A PTI library for Intel(R) oneAPI applications. 
+      license: MIT
+      license_family: MIT
+      license_file: LICENSE
+      doc_url: https://github.com/intel/pti-gpu
+      dev_url: https://github.com/intel/pti-gpu
   
   - name: pti-gpu-unitrace
     script: build.sh  # [unix]
@@ -122,9 +128,9 @@ outputs:
       home: https://github.com/intel/pti-gpu
       summary: 'Unified Tracing and Profiling Tool'
       description: |
-        A performnce tool for Intel(R) oneAPI applications. It traces and
-        profiles host/device activites, interactions and hardware utilizations for
-        Intel(R) GPU applications.
+        A performance tool for Intel(R) oneAPI applications. It traces and
+        profiles host/device activities, interactions and hardware utilizations
+        for Intel(R) GPU applications.
       license: MIT
       license_family: MIT
       license_file: LICENSE
