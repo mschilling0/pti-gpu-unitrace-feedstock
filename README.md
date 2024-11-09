@@ -23,11 +23,15 @@ This a PTI library for Intel(R) oneAPI applications.
 About intel-pti
 ---------------
 
+Home: https://github.com/intel/pti-gpu
 
+Package license: MIT
 
-Package license: 
+Summary: Profiling Tools Interfaces for GPU
 
-Summary: Profiling Tools Interfaces for GPU2
+Development: https://github.com/intel/pti-gpu
+
+Documentation: https://github.com/intel/pti-gpu
 
 A PTI library for Intel(R) oneAPI applications.
 
@@ -45,9 +49,9 @@ Development: https://github.com/intel/pti-gpu
 
 Documentation: https://github.com/intel/pti-gpu
 
-A performnce tool for Intel(R) oneAPI applications. It traces and
-profiles host/device activites, interactions and hardware utilizations for
-Intel(R) GPU applications.
+A performance tool for Intel(R) oneAPI applications. It traces and
+profiles host/device activities, interactions and hardware utilizations
+for Intel(R) GPU applications.
 
 
 Current build status
