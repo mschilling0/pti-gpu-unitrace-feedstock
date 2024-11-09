@@ -107,8 +107,7 @@ outputs:
         # cpu runtime
         - intel-opencl-rt
         - impi-devel
-        # TODO: add ittapi-static once it is available
-        # - ittapi-static
+        - ittapi-static
         # These packages are not required during build, but we want proper version
         # export for runtime:
         - intel-cmplr-lib-rt
