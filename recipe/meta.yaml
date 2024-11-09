@@ -14,7 +14,7 @@ package:
   version: {{ version_pkg }}
 
 source:
-  url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{version}}.tar.gz
+  url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
   sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
 
 build:
