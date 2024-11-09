@@ -114,6 +114,8 @@ outputs:
       run_constrained:
         - {{ pin_compatible("level-zero") }}
     test:
+      requires:
+        - level-zero
       commands:
         - unitrace --help
     about:
