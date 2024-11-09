@@ -76,8 +76,8 @@ outputs:
         - test -f $PREFIX/lib/libpti_view.so  # [unix]
         - test -f $PREFIX/lib/libpti.so.{{ so_version }}  # [unix]
         - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
-        - test -f %LIBRARY_LIB%\libpti-{{ so_version|replace(".", "-") }}.dll  # [win]
-        - test -f %LIBRARY_LIB%\libpti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
+        - test -f %LIBRARY_LIB%\pti-{{ so_version|replace(".", "-") }}.dll  # [win]
+        - test -f %LIBRARY_LIB%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
       summary: 'Profiling Tools Interfaces for GPU2'
       description: |
