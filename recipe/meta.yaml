@@ -77,7 +77,8 @@ outputs:
         - test -f $PREFIX/lib/libpti.so.{{ so_version }}  # [unix]
         - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
         - test -f %LIBRARY_LIB%\pti-{{ so_version|replace(".", "-") }}.dll  # [win]
-        - test -f %LIBRARY_LIB%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
+        # TODO: figure out why it is in bin directory
+        - test -f %LIBRARY_BIN%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
       summary: 'Profiling Tools Interfaces for GPU2'
       description: |
