@@ -46,6 +46,9 @@ outputs:
     script: install.sh  # [unix]
     script: install.bat  # [win]
     version: {{ version_pkg }}
+    build:
+      ignore_run_exports_from:
+        - level-zero-devel
     run_exports:
         - {{ pin_subpackage(name, max_pin='x.x') }}
     requirements:
@@ -64,6 +67,8 @@ outputs:
         # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
         #   remove once fmt is in run_export of spdlog.
         - fmt
+      run_constrained:
+        - {{ pin_compatible("level-zero") }}
     test:
       commands:
         # TODO: figure out why it is no longer presented in 0.10
@@ -81,9 +86,12 @@ outputs:
   - name: pti-gpu-unitrace
     script: build.sh  # [unix]
     script: bld.bat  # [win]
-    # TODO: does unitrace work on windows?
-    skip: True  # [not linux]
     version: {{ unitrace_version }}
+    build:
+      ignore_run_exports_from:
+        - level-zero-devel
+      # TODO: does unitrace work on windows?
+      skip: True  # [not linux]
     requirements:
       build:
         - cmake >=3.29
@@ -103,6 +111,8 @@ outputs:
         # These packages are not required during build, but we want proper version
         # export for runtime:
         - intel-cmplr-lib-rt
+      run_constrained:
+        - {{ pin_compatible("level-zero") }}
     test:
       commands:
         - unitrace --help
