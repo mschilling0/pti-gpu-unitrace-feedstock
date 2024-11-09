@@ -71,8 +71,8 @@ outputs:
         - test -f $PREFIX/lib/libpti_view.so  # [unix]
         - test -f $PREFIX/lib/libpti.so.{{ so_version }}  # [unix]
         - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
-        - test -f %LIBRARY_LIB%\libpti.dll  # [win]
-        - test -f %LIBRARY_LIB%\libpti_view.dll  # [win]
+        - test -f %LIBRARY_LIB%\libpti-{{ so_version|replace(".", "-") }}.dll  # [win]
+        - test -f %LIBRARY_LIB%\libpti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
       summary: 'Profiling Tools Interfaces for GPU2'
       description: |
@@ -81,6 +81,8 @@ outputs:
   - name: pti-gpu-unitrace
     script: build.sh  # [unix]
     script: bld.bat  # [win]
+    # TODO: does unitrace work on windows?
+    skip: True  # [not linux]
     version: {{ unitrace_version }}
     requirements:
       build:
