@@ -18,7 +18,7 @@ source:
   sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
 
 build:
-  number: 1
+  number: 2
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
