@@ -18,7 +18,7 @@ source:
   sha256: 9317d12408dd5cd62b703c8b5d5a63db9a1cca3366fb5813a64a860fdc5f9cc1
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -40,6 +40,9 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
+    - dpcpp_impl_linux-64  # [linux]
+    - dpcpp_impl_win-64  # [win]
+    - intel-cmplr-lib-rt
 
 outputs:
   - name: {{ name }}
