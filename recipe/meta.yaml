@@ -29,7 +29,6 @@ requirements:
     - cmake >=3.29
     - ninja >=1.11.1
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
-    - {{ compiler('dpcpp') }} >=2025.0.0 # SYCL instrumentation feature
     - {{ stdlib('c') }} # glibc for build/rt
   host:
     - level-zero-devel >=1.17.6 # level zero for build/rt
@@ -41,6 +40,8 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
+    - dpcpp_impl_linux-64
+    - dpcpp_impl_win-64
     - intel-cmplr-lib-rt
 
 outputs:
