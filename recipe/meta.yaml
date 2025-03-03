@@ -40,8 +40,8 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
-    - dpcpp_impl_linux-64 # [linux]
-    - dpcpp_impl_win-64 # [win]
+    - dpcpp_impl_linux-64  # [linux]
+    - dpcpp_impl_win-64  # [win]
     - intel-cmplr-lib-rt
 
 outputs:
