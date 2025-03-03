@@ -16,7 +16,7 @@ if "%PKG_NAME%" == "pti-gpu-unitrace" (
 ) else (
   set "_SRC_DIR=.\sdk"
   set "BLD_DIR=.\sdk\build"
-  set "CMAKE_ARGS=-DPTI_BUILD_TESTING=OFF -DPTI_BUILD_SAMPLES=OFF"
+  set "CMAKE_ARGS=-DCMAKE_CXX_FLAGS=/EHcs -DPTI_BUILD_TESTING=OFF -DPTI_BUILD_SAMPLES=OFF"
 )
 
 :: Configure.
