@@ -18,7 +18,7 @@ source:
   sha256: 9317d12408dd5cd62b703c8b5d5a63db9a1cca3366fb5813a64a860fdc5f9cc1
 
 build:
-  number: 2
+  number: 3
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -26,7 +26,7 @@ build:
 
 requirements:
   build:
-    - cmake >=3.29
+    - cmake 3.29
     - ninja >=1.11.1
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
@@ -56,7 +56,7 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x') }}
     requirements:
       build:
-        - cmake >=3.29
+        - cmake 3.29
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
@@ -104,7 +104,7 @@ outputs:
       skip: True  # [not linux]
     requirements:
       build:
-        - cmake >=3.29
+        - cmake 3.29
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
         - {{ compiler('dpcpp') }} >=2025.0.0
