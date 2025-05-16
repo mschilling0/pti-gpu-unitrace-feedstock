@@ -31,7 +31,7 @@ cmake %CMAKE_ARGS% ^
 :: Build.
 cmake --build %BLD_DIR% || exit /b !ERRORLEVEL!
 
-if "$PKG_NAME" == "pti-gpu-unitrace" (
+if "%PKG_NAME%" == "pti-gpu-unitrace" (
     cmake --install %BLD_DIR% --prefix=%LIBRARY_PREFIX% || exit /b !ERRORLEVEL!
 )
 
