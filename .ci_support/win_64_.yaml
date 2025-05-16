@@ -10,5 +10,7 @@ cxx_compiler:
 - vs2019
 fmt:
 - '11.1'
+impi_devel:
+- '2021.14'
 target_platform:
 - win-64
