@@ -18,7 +18,7 @@ source:
   sha256: b9c4d4415bbd2a7837e9fc69b645f6c231edcdc591ad5c63a1e6d2f61303ad0a
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -40,9 +40,9 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
-    - dpcpp_impl_linux-64 2025.0.4  # [linux]
-    - dpcpp_impl_win-64 2025.0.4  # [win]
-    - intel-cmplr-lib-rt 2025.0.4
+    - dpcpp_impl_linux-64 >=2025.0.0  # [linux]
+    - dpcpp_impl_win-64 >=2025.0.0  # [win]
+    - intel-cmplr-lib-rt >=2025.0.0
 
 outputs:
   - name: {{ name }}
@@ -101,7 +101,7 @@ outputs:
       ignore_run_exports_from:
         - level-zero-devel
       # TODO: does unitrace work on windows?
-      skip: True  # [not linux]
+      skip: true  # [osx]
     requirements:
       build:
         - cmake 3.29
@@ -109,7 +109,7 @@ outputs:
         # For ITT?
         - make
         - {{ compiler('cxx') }}
-        - {{ compiler('dpcpp') }} 2025.0.4
+        - {{ compiler('dpcpp') }} >=2025.0.0
         - {{ stdlib('c') }}
       host:
         - level-zero-devel >=1.20.2
@@ -121,7 +121,7 @@ outputs:
         - ittapi-static
         # These packages are not required during build, but we want proper version
         # export for runtime:
-        - intel-cmplr-lib-rt 2025.0.4
+        - intel-cmplr-lib-rt >=2025.0.0
       run_constrained:
         - {{ pin_compatible("level-zero") }}
     test:
