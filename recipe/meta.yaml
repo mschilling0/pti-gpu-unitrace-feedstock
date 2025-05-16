@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.12.0" %}
+{% set version = "0.12.1" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: a895418ec5076661e8fbf98ff180f6d04b6556a1a6cbe5714b1a8050613d88a4
+  sha256: b9c4d4415bbd2a7837e9fc69b645f6c231edcdc591ad5c63a1e6d2f61303ad0a
 
 build:
   number: 0
