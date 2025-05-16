@@ -18,7 +18,7 @@ source:
   sha256: 43ce939a2fefac7d13daf5d090e88e16f8fd8264add1a4fe048db14459d04cca
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -31,7 +31,7 @@ requirements:
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel >=1.17.6 # level zero for build/rt
+    - level-zero-devel >=1.20.2 # level zero for build/rt
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
     # cpu runtime
@@ -61,7 +61,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.17.6
+        - level-zero-devel >=1.20.2
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
@@ -110,7 +110,7 @@ outputs:
         - {{ compiler('dpcpp') }} >=2025.0.0
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.17.6
+        - level-zero-devel >=1.20.2
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
