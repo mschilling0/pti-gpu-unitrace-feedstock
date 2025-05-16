@@ -1,7 +1,7 @@
 {% set name = "intel-pti" %}
-{% set version = "0.10.2" %}
+{% set version = "0.11.0" %}
 {% set version_pkg = version | replace("-", ".") %}
-{% set so_version = version.split('.')[0] ~ "." ~ version.split('.')[1] %}
+{% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
 
 {% set unitrace_version_match = load_file_regex(
@@ -15,10 +15,10 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: 43ce939a2fefac7d13daf5d090e88e16f8fd8264add1a4fe048db14459d04cca
+  sha256: 488db631565a92cbd53971fe45a5aa5b1f49d0883ac3d5eda40cd490ed9e80bb
 
 build:
-  number: 1
+  number: 0
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -40,9 +40,9 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
-    - dpcpp_impl_linux-64  # [linux]
-    - dpcpp_impl_win-64  # [win]
-    - intel-cmplr-lib-rt
+    - dpcpp_impl_linux-64 2025.0.4  # [linux]
+    - dpcpp_impl_win-64 2025.0.4  # [win]
+    - intel-cmplr-lib-rt 2025.0.4
 
 outputs:
   - name: {{ name }}
@@ -74,13 +74,13 @@ outputs:
         - {{ pin_compatible("level-zero") }}
     test:
       commands:
-        # TODO: figure out why it is no longer presented in 0.10
-        # - test -f $PREFIX/lib/libpti.so  # [unix]
         - test -f $PREFIX/lib/libpti_view.so  # [unix]
-        - test -f $PREFIX/lib/libpti.so.{{ so_version }}  # [unix]
+        - test -f $PREFIX/lib/libpti.so  # [unix]
         - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
-        - test -f %LIBRARY_LIB%\pti-{{ so_version|replace(".", "-") }}.dll  # [win]
+        # this is in LIBRARY_LIB because it get loaded manually. (LoadLibrary)
+        - test -f %LIBRARY_LIB%\pti.dll  # [win]
         # TODO: figure out why it is in bin directory
+        # TODO: figure out above because BIN would be in PATH, so this is expected.
         - test -f %LIBRARY_BIN%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
       home: https://github.com/intel/pti-gpu
@@ -106,8 +106,10 @@ outputs:
       build:
         - cmake 3.29
         - ninja >=1.11.1
+        # For ITT?
+        - make
         - {{ compiler('cxx') }}
-        - {{ compiler('dpcpp') }} >=2025.0.0
+        - {{ compiler('dpcpp') }} 2025.0.4
         - {{ stdlib('c') }}
       host:
         - level-zero-devel >=1.20.2
@@ -119,7 +121,7 @@ outputs:
         - ittapi-static
         # These packages are not required during build, but we want proper version
         # export for runtime:
-        - intel-cmplr-lib-rt
+        - intel-cmplr-lib-rt 2025.0.4
       run_constrained:
         - {{ pin_compatible("level-zero") }}
     test:
