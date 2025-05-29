@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.10.3 %}
+{% set version = "0.10.3" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] ~ "." ~ version.split('.')[1] %}
 {% set so_version_major = version.split('.')[0] %}
