@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.12.4" %}
+{% set version = "0.13.0-rc1" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: ccdc7b6d6b47625b7ef0d5abfce8a4056cc9ab5282a22e5c67524fd6c135834f
+  sha256: 43d49af6855410ce974a7cbe58aff6b0a00683bd70321319947c8b7258c01176
 
 build:
   number: 1
@@ -26,7 +26,7 @@ build:
 
 requirements:
   build:
-    - cmake 3.29
+    - cmake
     - ninja >=1.11.1
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
@@ -56,7 +56,7 @@ outputs:
         - {{ pin_subpackage(name, max_pin='x.x') }}
     requirements:
       build:
-        - cmake 3.29
+        - cmake
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
@@ -104,7 +104,7 @@ outputs:
       skip: true  # [osx]
     requirements:
       build:
-        - cmake 3.29
+        - cmake
         - ninja >=1.11.1
         # For ITT?
         - make
