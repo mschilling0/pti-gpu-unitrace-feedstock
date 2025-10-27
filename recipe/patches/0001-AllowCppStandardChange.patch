@@ -1,0 +1,16 @@
+diff --git a/sdk/CMakeLists.txt b/sdk/CMakeLists.txt
+index 68fe560..e0a8f53 100644
+--- a/sdk/CMakeLists.txt
++++ b/sdk/CMakeLists.txt
+@@ -31,7 +31,10 @@ if(PROJECT_IS_TOP_LEVEL)
+   AddFormatTarget()
+ endif()
+ 
+-set(CMAKE_CXX_STANDARD 17)
++if (NOT DEFINED CMAKE_CXX_STANDARD)
++  set(CMAKE_CXX_STANDARD 17)
++endif()
++
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_CXX_EXTENSIONS OFF)
+ set(CMAKE_CXX_VISIBILITY_PRESET "hidden")

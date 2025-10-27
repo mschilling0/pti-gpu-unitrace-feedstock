@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.13.1" %}
+{% set version = "0.14.0" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,7 +15,10 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: 752b14040ed73e962e69da3264f908f4a3ab9edc878b1d4ed69060d4eda21216
+  sha256: cb124b8806c77c8155e48f34dc24c8b079595d12b3fbad28031e3a226f0a33e2
+  patches:
+    - patches/0001-AllowCppStandardChange.patch
+    - patches/0002-AvoidNarrowingConversion.patch
 
 build:
   number: 0
@@ -31,7 +34,7 @@ requirements:
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel >=1.24.2 # level zero for build/rt
+    - level-zero-devel 1.24.2 # level zero for build/rt
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
     # cpu runtime
