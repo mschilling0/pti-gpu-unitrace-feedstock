@@ -5,11 +5,20 @@ set -euxo pipefail
 if [ "$PKG_NAME" == "pti-gpu-unitrace" ]; then
     SRC_DIR=./tools/unitrace
     BLD_DIR=./tools/unitrace/build
-    CMAKE_ARGS=""
+    # Fixed in later versions of Unitrace. However, for now include these
+    # flags.
+    CMAKE_EXE_LINKER_FLAGS="-lrt"
+    CMAKE_CXX_FLAGS="-lrt"
+    CMAKE_ARGS=(
+        "-DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}"
+        "-DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}"
+    )
 else
     SRC_DIR=./sdk
     BLD_DIR=./sdk/build
-    CMAKE_ARGS="-DPTI_BUILD_TESTING=OFF -DPTI_BUILD_SAMPLES=OFF"
+    CMAKE_ARGS=(
+        "-DBUILD_TESTING=OFF"
+    )
 fi
 
 if [ "$PKG_NAME" == "pti-gpu-unitrace" ]; then
