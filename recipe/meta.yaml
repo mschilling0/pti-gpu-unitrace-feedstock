@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.14.0" %}
+{% set version = "0.15.0" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: cb124b8806c77c8155e48f34dc24c8b079595d12b3fbad28031e3a226f0a33e2
+  sha256: c76524c15c00a16c06f9127e31e84b77e8ea4eab9b5ce46a22354f1bcad5f9f8
   patches:
     - patches/0001-AllowCppStandardChange.patch
     - patches/0002-AvoidNarrowingConversion.patch
@@ -56,7 +56,7 @@ outputs:
       ignore_run_exports_from:
         - level-zero-devel
     run_exports:
-        - {{ pin_subpackage(name, max_pin='x.x') }}
+      - {{ pin_subpackage(name, max_pin='x.x') }}
     requirements:
       build:
         - cmake 3.29
@@ -95,7 +95,7 @@ outputs:
       license_file: LICENSE
       doc_url: https://github.com/intel/pti-gpu
       dev_url: https://github.com/intel/pti-gpu
-  
+
   - name: pti-gpu-unitrace
     script: build.sh  # [unix]
     script: bld.bat  # [win]
