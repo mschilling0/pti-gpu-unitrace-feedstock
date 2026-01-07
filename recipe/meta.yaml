@@ -21,7 +21,7 @@ source:
     - patches/0002-AvoidNarrowingConversion.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
