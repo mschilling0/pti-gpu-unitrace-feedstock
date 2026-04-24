@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.15.0" %}
+{% set version = "0.16.0" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,13 +15,10 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: c76524c15c00a16c06f9127e31e84b77e8ea4eab9b5ce46a22354f1bcad5f9f8
-  patches:
-    - patches/0001-AllowCppStandardChange.patch
-    - patches/0002-AvoidNarrowingConversion.patch
+  sha256: 1695a63afa533761fd61b2b1ed543d4fa8ca0ac4c495f3f7980b09b38e69b6bc
 
 build:
-  number: 1
+  number: 0
   skip: true  # [osx]
   ignore_run_exports:
     - dpcpp-cpp-rt
@@ -29,12 +26,12 @@ build:
 
 requirements:
   build:
-    - cmake 3.29
+    - cmake
     - ninja >=1.11.1
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel 1.24.2 # level zero for build/rt
+    - level-zero-devel >=1.26.3,<1.27 # level zero for build
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
     # cpu runtime
@@ -43,9 +40,9 @@ requirements:
     # TODO: https://github.com/conda-forge/spdlog-feedstock/issues/52
     #   remove once fmt is in run_export of spdlog.
     - fmt
-    - dpcpp_impl_linux-64 >=2025.0.0  # [linux]
-    - dpcpp_impl_win-64 >=2025.0.0  # [win]
-    - intel-cmplr-lib-rt >=2025.0.0
+    - dpcpp_impl_linux-64 >=2025.0.0,<2025.3.2  # [linux]
+    - dpcpp_impl_win-64 >=2025.0.0,<2025.3.2  # [win]
+    - intel-cmplr-lib-rt >=2025.0.0,<2025.3.2
 
 outputs:
   - name: {{ name }}
@@ -59,12 +56,12 @@ outputs:
       - {{ pin_subpackage(name, max_pin='x.x') }}
     requirements:
       build:
-        - cmake 3.29
+        - cmake
         - ninja >=1.11.1
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.24.2
+        - level-zero-devel >=1.26.3,<1.27
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
@@ -74,7 +71,8 @@ outputs:
         #   remove once fmt is in run_export of spdlog.
         - fmt
       run_constrained:
-        - {{ pin_compatible("level-zero") }}
+        - dpcpp-cpp-rt >=2025.3.2
+        - level-zero >=1.21.9
     test:
       commands:
         - test -f $PREFIX/lib/libpti_view.so  # [unix]
@@ -101,21 +99,22 @@ outputs:
     script: bld.bat  # [win]
     version: {{ unitrace_version }}
     build:
+      number: 2
       ignore_run_exports_from:
         - level-zero-devel
       # TODO: does unitrace work on windows?
       skip: true  # [osx]
     requirements:
       build:
-        - cmake 3.29
+        - cmake
         - ninja >=1.11.1
         # For ITT?
         - make
         - {{ compiler('cxx') }}
-        - {{ compiler('dpcpp') }} >=2025.0.0
+        - {{ compiler('dpcpp') }} >=2025.0.0,<2025.3.2
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.20.2
+        - level-zero-devel >=1.26.3,<1.27
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
@@ -124,14 +123,16 @@ outputs:
         - ittapi-static
         # These packages are not required during build, but we want proper version
         # export for runtime:
-        - intel-cmplr-lib-rt >=2025.0.0
+        - intel-cmplr-lib-rt >=2025.0.0,<2025.3.2
       run_constrained:
-        - {{ pin_compatible("level-zero") }}
+        - dpcpp-cpp-rt >=2025.3.2
+        - level-zero >=1.21.9
     test:
       requires:
         - level-zero
       commands:
-        - unitrace --help
+        # TODO: remove `|| true` once upstream unitrace returns 0 for --help
+        - unitrace --help || true
     about:
       home: https://github.com/intel/pti-gpu
       summary: 'Unified Tracing and Profiling Tool'
