@@ -41,7 +41,7 @@ requirements:
     #   remove once fmt is in run_export of spdlog.
     - fmt
     - dpcpp_impl_linux-64 >=2025.0.0  # [linux]
-    - dpcpp_impl_win-64 >=2025.0.0 # [win]
+    - dpcpp_impl_win-64 >=2025.0.0  # [win]
     - intel-cmplr-lib-rt >=2025.0.0
 
 outputs:
