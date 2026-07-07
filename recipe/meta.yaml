@@ -31,7 +31,7 @@ requirements:
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel >=1.28.0
+    - level-zero-devel 1.28.*
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
     # cpu runtime
@@ -61,7 +61,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.28.0
+        - level-zero-devel 1.28.*
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
@@ -114,7 +114,7 @@ outputs:
         - {{ compiler('dpcpp') }} >=2025.0.0
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.28.0
+        - level-zero-devel 1.28.*
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
