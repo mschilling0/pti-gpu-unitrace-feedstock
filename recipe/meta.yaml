@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "0.17.0" %}
+{% set version = "1.0.0" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -15,7 +15,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: 9c29c17ed4cf2da48b00df8de8a28ae3e117635e52ce6b53a0e7a7c190075ea9
+  sha256: c1c450145df094f7d463369d3236c80531e1d73e4e96fc55caced6239454cdf4
 
 build:
   number: 0
@@ -99,7 +99,7 @@ outputs:
     script: bld.bat  # [win]
     version: {{ unitrace_version }}
     build:
-      number: 2
+      number: 3
       ignore_run_exports_from:
         - level-zero-devel
       # TODO: does unitrace work on windows?
