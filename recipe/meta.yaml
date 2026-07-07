@@ -76,12 +76,9 @@ outputs:
     test:
       commands:
         - test -f $PREFIX/lib/libpti_view.so  # [unix]
-        - test -f $PREFIX/lib/libpti.so  # [unix]
+        - test -f $PREFIX/lib/pti/libpti.so  # [unix]
         - test -f $PREFIX/lib/libpti_view.so.{{ so_version }}  # [unix]
-        # this is in LIBRARY_LIB because it get loaded manually. (LoadLibrary)
-        - test -f %LIBRARY_LIB%\pti.dll  # [win]
-        # TODO: figure out why it is in bin directory
-        # TODO: figure out above because BIN would be in PATH, so this is expected.
+        - test -f %LIBRARY_BIN%\pti\pti.dll  # [win]
         - test -f %LIBRARY_BIN%\pti_view-{{ so_version|replace(".", "-") }}.dll  # [win]
     about:
       home: https://github.com/intel/pti-gpu
