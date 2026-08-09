@@ -12,7 +12,8 @@ if "%PKG_NAME%" == "pti-gpu-unitrace" (
   set "INCLUDE=%BUILD_PREFIX%\include;%INCLUDE%"
   set "_SRC_DIR=.\tools\unitrace"
   set "BLD_DIR=.\tools\unitrace\build"
-  set "CMAKE_ARGS="
+  REM Disable OpenMP for Unitrace build on Window (missing omp-tools.h)
+  set "CMAKE_ARGS=-DBUILD_WITH_OMP=0"
 ) else (
   set "_SRC_DIR=.\sdk"
   set "BLD_DIR=.\sdk\build"
