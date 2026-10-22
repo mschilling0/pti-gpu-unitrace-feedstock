@@ -29,7 +29,7 @@ requirements:
     - {{ compiler('cxx') }} # that is lilbstc++ for both rt and build
     - {{ stdlib('c') }} # glibc for build/rt
   host:
-    - level-zero-devel 1.33.*
+    - level-zero-devel 1.34.*
     - ocl-icd  # [linux]
     - khronos-opencl-icd-loader  # [not linux]
     # cpu runtime
@@ -58,7 +58,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel 1.33.*
+        - level-zero-devel 1.34.*
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         # cpu runtime
@@ -92,7 +92,7 @@ outputs:
     script: {{ "bld.bat" if win else "build.sh" }}
     version: {{ unitrace_version }}
     build:
-      number: 0
+      number: 2
       ignore_run_exports_from:
         - level-zero-devel
       # TODO: does unitrace work on windows?
@@ -107,7 +107,7 @@ outputs:
         - {{ compiler('dpcpp') }} >=2025.0.0
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel 1.33.*
+        - level-zero-devel 1.34.*
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         - llvm-openmp
