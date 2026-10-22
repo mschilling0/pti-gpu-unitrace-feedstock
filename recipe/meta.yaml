@@ -1,5 +1,5 @@
 {% set name = "intel-pti" %}
-{% set version = "1.1.0" %}
+{% set version = "1.2.0" %}
 {% set version_pkg = version | replace("-", ".") %}
 {% set so_version = version.split('.')[0] %}
 {% set so_version_major = version.split('.')[0] %}
@@ -13,7 +13,7 @@ package:
 
 source:
   url: https://github.com/intel/pti-gpu/archive/refs/tags/pti-{{ version }}.tar.gz
-  sha256: d604473e70485043347591868cfc038f4b853cece5ec14554bd5a0eec7288891
+  sha256: b2fe5853d2f68efbc2da9a402a72e2d3ae53dd350e4604f0e4e904ff60b68394
 
 build:
   number: 0
@@ -92,7 +92,7 @@ outputs:
     script: {{ "bld.bat" if win else "build.sh" }}
     version: {{ unitrace_version }}
     build:
-      number: 1
+      number: 0
       ignore_run_exports_from:
         - level-zero-devel
       # TODO: does unitrace work on windows?
@@ -107,7 +107,7 @@ outputs:
         - {{ compiler('dpcpp') }} >=2025.0.0
         - {{ stdlib('c') }}
       host:
-        - level-zero-devel >=1.29,<1.32
+        - level-zero-devel 1.33.*
         - ocl-icd  # [linux]
         - khronos-opencl-icd-loader  # [not linux]
         - llvm-openmp
